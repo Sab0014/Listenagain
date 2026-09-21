@@ -20,8 +20,8 @@
   <nav class="top-nav nav-blocks" aria-label="主导航">
     <a href="index.html"><span class="zh" data-zh="首页" data-en="Home Page">首页</span><span class="en">Home Page</span></a>
     <a href="sound.html" class="is-active" aria-current="page"><span class="zh" data-zh="声音实验" data-en="Sound Experiments">声音实验</span><span class="en">Sound Experiments</span></a>
-    <a href="#"><span class="zh" data-zh="了解更多" data-en="Learn More">了解更多</span><span class="en">Hearing Loss: Signs &amp; Resources</span></a>
-    <a href="#"><span class="zh" data-zh="幕后故事" data-en="BTS">幕后故事</span><span class="en">BTS</span></a>
+    <a href="hearing-loss-page/index.html"><span class="zh" data-zh="了解更多" data-en="Learn More">了解更多</span><span class="en">Hearing Loss: Signs &amp; Resources</span></a>
+    <a href="bts.html"><span class="zh" data-zh="幕后故事" data-en="BTS">幕后故事</span><span class="en">BTS</span></a>
   </nav>
 </header>
 
@@ -120,7 +120,7 @@
       <button class="ctrl" id="btn-reset" type="button" aria-label="重置所有滑块">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 5v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.4 10A8 8 0 1 0 20 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
-      <button class="ha-btn" type="button" disabled aria-disabled="true">
+      <button class="ha-btn" id="btn-ha" type="button" aria-haspopup="dialog">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 10a6 6 0 0 1 12 0c0 2.5-1.2 3.6-2 5-.6 1-.4 2.4-1.6 2.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 10.5c.8.4 1 1.2.7 2-.3.9-1.2 1.2-1.2 2.2 0 .9.8 1.3 1.6 1.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15.4" cy="19.6" r="1.4" fill="currentColor"/></svg>
         <span data-zh="助听器模式" data-en="Hearing Aid Mode">助听器模式</span>
       </button>
@@ -134,7 +134,77 @@
 
 <div class="notice" id="notice" hidden></div>
 
+<div class="ha-modal" id="ha-modal" hidden>
+  <div class="ha-card" role="dialog" aria-modal="true" aria-label="助听器模式">
+    <div class="ha-top">
+      <p class="ha-brand">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 14v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2zM20 14v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2z" fill="currentColor"/></svg>
+        <span data-zh="助听器模式" data-en="Hearing Aid Mode">助听器模式</span>
+      </p>
+      <button class="ha-close" id="ha-close" type="button" aria-label="关闭">
+        <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="ha-body">
+      <div class="ha-copy">
+        <h2><span class="ln" data-zh="助听器也没有" data-en="Hearing aids aren’t">助听器也没有</span><span class="ln" data-zh="想象中那么好用。" data-en="as helpful as imagined.">想象中那么好用。</span></h2>
+        <p data-zh="在与爷爷的访谈中，他告诉我们：助听器让一些声音变得清楚，却也带来了新的困扰——杂音更明显，声音的远近与空间感也发生了变化。"
+           data-en="In our interview, grandpa told us: hearing aids make some sounds clearer, but they also bring new troubles — noise stands out more, and the sense of distance and space changes.">在与爷爷的访谈中，他告诉我们：助听器让一些声音变得清楚，却也带来了新的困扰——杂音更明显，声音的远近与空间感也发生了变化。</p>
+        <p data-zh="基于他的反馈，我们使用专业的声音处理软件进行了更复杂的处理，模拟助听器对日常声音的综合影响。"
+           data-en="Based on his feedback, we used professional audio software to run more complex processing, simulating how hearing aids affect everyday sounds.">基于他的反馈，我们使用专业的声音处理软件进行了更复杂的处理，模拟助听器对日常声音的综合影响。</p>
+      </div>
+      <div class="ha-visual" aria-hidden="true">
+        <svg viewBox="0 0 360 230" fill="none" stroke="#1c1c1e" stroke-width="3" stroke-linejoin="round">
+          <rect x="6" y="6" width="348" height="218" rx="18"/>
+          <rect x="34" y="24" width="292" height="124" rx="10"/>
+          <circle cx="110" cy="86" r="30"/>
+          <circle cx="110" cy="86" r="12"/>
+          <circle cx="250" cy="86" r="30"/>
+          <circle cx="250" cy="86" r="12"/>
+          <g stroke-width="2.2">
+            <circle cx="140" cy="86" r="4.5"/><circle cx="125" cy="112" r="4.5"/><circle cx="95" cy="112" r="4.5"/>
+            <circle cx="80" cy="86" r="4.5"/><circle cx="95" cy="60" r="4.5"/><circle cx="125" cy="60" r="4.5"/>
+            <circle cx="280" cy="86" r="4.5"/><circle cx="265" cy="112" r="4.5"/><circle cx="235" cy="112" r="4.5"/>
+            <circle cx="220" cy="86" r="4.5"/><circle cx="235" cy="60" r="4.5"/><circle cx="265" cy="60" r="4.5"/>
+          </g>
+          <path d="M118 158 L242 158 L270 200 L90 200 Z"/>
+          <g stroke-width="2.2">
+            <circle cx="22" cy="22" r="5"/><circle cx="338" cy="22" r="5"/>
+            <circle cx="22" cy="208" r="5"/><circle cx="338" cy="208" r="5"/>
+            <circle cx="150" cy="180" r="4.5"/><circle cx="210" cy="180" r="4.5"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ha-player">
+      <button class="ha-play" id="ha-play" type="button" aria-label="播放">
+        <svg class="ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>
+        <svg class="ic-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h3v14H8zM13.5 5h3v14h-3z" fill="currentColor"/></svg>
+      </button>
+      <span class="ha-time" id="ha-time-cur">00:00</span>
+      <div class="ha-bar" id="ha-bar" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i id="ha-fill"></i></div>
+      <span class="ha-time" id="ha-time-total">--:--</span>
+      <button class="ha-mute" id="ha-mute" type="button" aria-label="静音">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="wave-on" d="M16 9c1.2 1 1.2 5 0 6M18.5 7c2.2 2 2.2 8 0 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="wave-off" d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="ha-cap" data-zh="模拟助听器后的声音体验" data-en="Sound experience with the hearing-aid simulation">模拟助听器后的声音体验</p>
+
+    <div class="ha-foot">
+      <a class="ha-link" href="bts.html">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h7l4 4V17a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 4 17V4A1.5 1.5 0 0 1 5.5 2.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 2.5V7h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span data-zh="了解这个项目的完整介绍" data-en="Read the full project story">了解这个项目的完整介绍</span>
+        <span class="arr" aria-hidden="true">→</span>
+      </a>
+      <p class="ha-foot-sub" data-zh="深入了解访谈故事与制作过程" data-en="The interview story and how this project was made">深入了解访谈故事与制作过程</p>
+    </div>
+  </div>
+</div>
+
 <audio id="media" src="assets/audio/tape-01.m4a" preload="metadata"></audio>
+<audio id="ha-media" preload="metadata"></audio>
 
 <!-- 内嵌音频数据体积较大，只在本地直接打开时加载；线上走普通音频文件，按需流式加载 -->
 <script>
@@ -144,5 +214,6 @@ if (window.location.protocol === 'file:') {
 </script>
 <script src="assets/app.js"></script>
 <script src="assets/sound.js"></script>
+<script src="assets/bgm.js"></script>
 </body>
 </html>

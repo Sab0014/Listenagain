@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>幕后故事 · Listen Again</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/bts.css">
+</head>
+<body class="page-bts">
+<!-- 标记脚本可用：隐藏区块的初始「隐形」状态只在脚本可用时才生效，避免脚本被拦截时内容看不见 -->
+<script>document.documentElement.className += ' js';</script>
+
+<header class="site-header">
+  <div class="logo-box">
+    <div class="logo">
+      <div class="logo-text">LISTEN<br>AGAIN</div>
+      <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <p class="tagline" data-zh="听见声音的另一种样子" data-en="听见声音的另一种样子">听见声音的另一种样子</p>
+  </div>
+  <nav class="top-nav nav-blocks" aria-label="主导航">
+    <a href="index.html"><span class="zh" data-zh="首页" data-en="Home Page">首页</span><span class="en">Home Page</span></a>
+    <a href="sound.html"><span class="zh" data-zh="声音实验" data-en="Sound Experiments">声音实验</span><span class="en">Sound Experiments</span></a>
+    <a href="hearing-loss-page/index.html"><span class="zh" data-zh="了解更多" data-en="Learn More">了解更多</span><span class="en">Hearing Loss: Signs &amp; Resources</span></a>
+    <a href="bts.html" class="is-active" aria-current="page"><span class="zh" data-zh="幕后故事" data-en="BTS">幕后故事</span><span class="en">BTS</span></a>
+  </nav>
+</header>
+
+<div class="lang-switch" role="group" aria-label="语言切换">
+  <button class="lang-btn active" type="button" data-lang="zh">中文</button>
+  <span class="lang-dot" aria-hidden="true"></span>
+  <button class="lang-btn" type="button" data-lang="en">English</button>
+</div>
+
+<main>
+  <!-- 首屏：整张拼贴图铺底（文字已渲染在图内，中英文各一张，随语言切换） -->
+  <section class="bts-hero" aria-label="幕后故事拼贴">
+    <div class="bts-collage">
+      <img class="collage-img is-zh" src="assets/img/bts/collage-zh.jpg" alt="拼贴：旧纸文稿与爷爷生活的照片（中文）">
+      <img class="collage-img is-en" src="assets/img/bts/collage-en.jpg" alt="Collage: typed notes and photos of grandpa's daily life (English)">
+    </div>
+
+    <!-- 首屏底部下滑提示（滑走/出现隐藏区块后淡出） -->
+    <a class="scroll-hint" href="#dedicate" aria-label="下滑查看隐藏内容">
+      <span>下滑</span>
+    </a>
+  </section>
+
+  <!-- 下滑出现：献给爷爷奶奶 -->
+  <section class="bts-dedicate" id="dedicate" aria-label="献给爷爷奶奶">
+    <p class="dedicate-line"
+       data-zh="献给我的爷爷奶奶，他们拥有圣妙醍醐的声音。"
+       data-en="献给我的爷爷奶奶，他们拥有圣妙醍醐的声音。">献给我的爷爷奶奶，他们拥有圣妙醍醐的声音。</p>
+    <img class="dedicate-photo" src="assets/img/bts/dedicate.jpg" alt="举着“世界最好的爸爸妈妈”画像的合影">
+  </section>
+</main>
+
+<script src="assets/app.js"></script>
+<script src="assets/bgm.js"></script>
+<script src="assets/bts.js"></script>
+</body>
+</html>
