@@ -141,6 +141,23 @@
   document.querySelector('.arrow-prev').addEventListener('click', function () { loadTape(tapeIndex - 1); });
   document.querySelector('.arrow-next').addEventListener('click', function () { loadTape(tapeIndex + 1); });
 
+  /* 触屏：在磁带图上左右滑动即可切换（横滑幅度明显大于竖滑才触发，不影响页面滚动） */
+  (function () {
+    var zone = document.querySelector('.tape-visual');
+    var startX = 0, startY = 0;
+    zone.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+    zone.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - startX;
+      var dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        loadTape(tapeIndex + (dx < 0 ? 1 : -1));
+      }
+    }, { passive: true });
+  })();
+
   /* ---------- 播放控制 ---------- */
   function bindMedia(el) {
     el.addEventListener('timeupdate', function () {

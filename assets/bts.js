@@ -9,9 +9,13 @@
 
   var revealed = false;
 
-  /* 隐藏区块是否已经露出足够多（露出视口内 40px 即触发） */
-  function reveal() {
+  /* 隐藏区块是否已经露出足够多（露出视口内 40px 即触发）
+     force=false 时要求页面已滚动过：手机端地址栏会让 100vh 偏大，
+     刚进页面时区块可能被"算作"在视口内，必须等用户真的下滑 */
+  function reveal(force) {
     if (revealed) return;
+    var y = window.pageYOffset || window.scrollY || 0;
+    if (!force && y < 10) return;
     var r = sec.getBoundingClientRect();
     var vh = window.innerHeight || document.documentElement.clientHeight;
     if (r.top < vh - 40 && r.bottom > 0) {
@@ -56,7 +60,7 @@
       if (typeof sec.scrollIntoView === 'function') {
         e.preventDefault();
         sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        setTimeout(reveal, 400);
+        setTimeout(function () { reveal(true); }, 400);
       }
     });
   }

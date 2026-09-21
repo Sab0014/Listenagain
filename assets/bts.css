@@ -101,10 +101,13 @@ body.is-scrolled .scroll-hint { opacity: 0; pointer-events: none; }
   translate: 0 0;
 }
 
-/* ---- 移动端：拼贴整图（双语切换照常） ---- */
+/* ---- 移动端：首屏仍占满一整屏，保证隐藏区块在屏幕之外（下滑才出现） ---- */
 @media (max-width: 760px) {
-  .bts-hero { height: auto; min-height: 0; padding: 20px 16px 10px; }
+  .bts-hero {
+    /* svh = 手机可视区高度（不含地址栏），避免 100vh 偏大；不支持的浏览器回退到上面的 100vh */
+    height: calc(100svh - 74px);
+    padding: 14px 14px 10px;
+  }
   .bts-collage { width: 100%; }
-  .scroll-hint { display: none; }
   .bts-dedicate { gap: 14px; padding: 28px 20px 32px; }
 }

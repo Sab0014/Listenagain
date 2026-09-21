@@ -78,8 +78,15 @@
   btn.setAttribute('aria-pressed', muted ? 'false' : 'true');
   btn.innerHTML = muted ? NOTE_OFF : NOTE_ON;
 
-  /* 「了解更多」页语言切换位置更低，开关相应下移避让 */
-  if (document.querySelector('.hl-page')) btn.style.top = '158px';
+  /* 「了解更多」页桌面端语言切换位置更低，开关相应下移避让；
+     手机端（≤720px）各开关已由 style.css 统一改到右下/右上，不偏移 */
+  if (document.querySelector('.hl-page')) {
+    var mq = window.matchMedia('(max-width: 720px)');
+    var setTop = function () { btn.style.top = mq.matches ? '' : '158px'; };
+    setTop();
+    if (mq.addEventListener) mq.addEventListener('change', setTop);
+    else window.addEventListener('resize', setTop);
+  }
 
   btn.addEventListener('click', function () {
     muted = !muted;
