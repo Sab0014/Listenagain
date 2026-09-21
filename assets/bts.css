@@ -1,0 +1,110 @@
+/* ================= 幕后故事页（长页版） ================= */
+
+/* ---- 首屏：整张拼贴图铺底，严格占满一屏（隐藏区块完全在屏幕之下） ---- */
+.bts-hero {
+  position: relative;
+  height: calc(100vh - 74px);
+  display: grid;
+  place-items: center;
+  padding: 6px clamp(6px, 1.2vw, 18px) 10px;
+  overflow: hidden;
+}
+
+.bts-collage {
+  position: relative;
+  /* 拼贴图为 4:3，边长取「可用宽度」与「可用高度换算」中较小者（预留底部下滑提示的位置） */
+  width: min(100%, calc((100vh - 136px) * 4 / 3));
+  container-type: inline-size;
+}
+
+.collage-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 双语拼贴：文字已渲染在图内，中英文各一张，随 html[lang] 切换
+   （app.js 切语言时把 html lang 设为 zh-CN / en） */
+.collage-img.is-en { display: none; }
+html[lang="en"] .collage-img.is-zh { display: none; }
+html[lang="en"] .collage-img.is-en { display: block; }
+
+/* ---- 下滑提示（出现隐藏区块后淡出） ---- */
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #7c7c84;
+  font-size: 11px;
+  letter-spacing: .18em;
+  transition: opacity .45s ease;
+  animation: hint-bob 2.2s ease-in-out infinite;
+}
+.scroll-hint::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  rotate: 45deg;
+}
+@keyframes hint-bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+body.is-scrolled .scroll-hint { opacity: 0; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .scroll-hint { animation: none; } }
+
+/* ---- 下滑出现：献给爷爷奶奶（小彩蛋式收尾） ---- */
+.bts-dedicate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 34px 24px 40px;
+  background: #d7d0c1;
+}
+
+.dedicate-line {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .08em;
+  color: #55524a;
+  text-align: center;
+}
+
+.dedicate-photo {
+  display: block;
+  width: min(190px, 46vw);
+  height: auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
+}
+
+/* 滑入此区块时淡入上浮（.js 由 bts.html 顶部内联脚本添加：脚本不可用时内容直接可见） */
+.js .bts-dedicate .dedicate-line,
+.js .bts-dedicate .dedicate-photo {
+  opacity: 0;
+  translate: 0 34px;
+  transition: opacity 1s ease, translate 1s cubic-bezier(.22, .8, .28, 1);
+}
+.js .bts-dedicate .dedicate-photo { transition-delay: .18s; }
+.js .bts-dedicate.is-visible .dedicate-line,
+.js .bts-dedicate.is-visible .dedicate-photo {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ---- 移动端：拼贴整图（双语切换照常） ---- */
+@media (max-width: 760px) {
+  .bts-hero { height: auto; min-height: 0; padding: 20px 16px 10px; }
+  .bts-collage { width: 100%; }
+  .scroll-hint { display: none; }
+  .bts-dedicate { gap: 14px; padding: 28px 20px 32px; }
+}

@@ -1,0 +1,264 @@
+<!--
+  听力损失科普页 —— 嵌入式片段版（作用域样式）
+  ==================================================
+  用法：把下面整个 <style> + <div class="hl-page"> 粘贴到主站任意页面/组件里即可。
+  · 所有样式都在 .hl-page 作用域内，不会影响主站其它元素
+  · 图片按相对路径 images/ 引用，请与 images 文件夹放在同级
+  · 去掉 <body> 之外的全局规则（body / * 重置 / html），可安全嵌入
+  · 索引 Banner 默认不吸顶；若要吸顶改成 position:sticky; top:<主站头部高度>px
+  · "在线听力测试"按钮在嵌入场景用绝对定位（贴在本页右侧滚动位置）
+  如需保持按钮始终悬浮在视口：把 position:absolute 改回 position:fixed
+-->
+<style>
+ 里，所有类名带 hl- 前缀，不会污染主站样式
+  2. 整页内容在 <div class="hl-page"> 里，可整体搬进主站的路由/容器
+  3. 三张照片放在同目录 images/ 下，接入时连同文件夹一起拷贝
+  4. "在线听力测试"悬浮按钮在 .hl-float-btn，链接已指向 beltone 在线测听
+  5. TODO: 第④区块两条医院链接请核对原文后再上线（代码里有标注）
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听力损失科普 | 了解更多</title>
+<style>
+  .hl-page{
+    --hl-green-1: #C8F8DB;   /* 区块②：可能导致的后果 */
+    --hl-green-2: #99FFC0;   /* 区块③：早期征兆 */
+    --hl-teal:    #3D8C7F;   /* 区块④：深圳设施信息 */
+    --hl-pink:    #F8A9C4;   /* 强调色：悬浮按钮 / 图标 */
+    --hl-ink:     #1A1A1A;
+    --hl-white:   #FFFFFF;
+    /* 统一字号层级 */
+    --fs-display: 40px;  /* 大关键词 */
+    --fs-section: 28px;  /* 区块大标题 */
+    --fs-title:   20px;  /* 小标题 */
+    --fs-body:    15px;  /* 正文 */
+    --fs-small:   13px;  /* 辅助小字 */
+  }
+  .hl-page *{ margin:0; padding:0; box-sizing:border-box; }
+    .hl-page{ font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+           color:var(--hl-ink); background:var(--hl-white);
+           -webkit-font-smoothing:antialiased; }
+  .hl-page{ position:relative; }
+  .hl-page a{ color:inherit; }
+
+  /* ===== ① 索引 Banner：每块底色 = 对应区块的底色 ===== */
+  .hl-banner{
+    position:relative;   /* 嵌入时如需吸顶：改为 sticky 并把 top 设成主站头部高度，如 top:64px */
+    z-index:1;
+    display:flex; width:100%;
+    margin-bottom:32px;   /* 索引与正文之间的白色间隔 */
+  }
+  .hl-banner a{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    min-height:96px; padding:12px 16px;
+    font-size:var(--fs-body); font-weight:500; text-align:center; text-decoration:none;
+    transition:filter .2s;
+  }
+  .hl-banner a:hover{ filter:brightness(0.95); }
+  .hl-banner .hl-b1{ background:var(--hl-green-1); color:var(--hl-ink); }
+  .hl-banner .hl-b2{ background:var(--hl-green-2); color:var(--hl-ink); }
+  .hl-banner .hl-b3{ background:var(--hl-teal); color:var(--hl-white); }
+
+  /* ===== 悬浮按钮：在线听力测试（贴右边缘） ===== */
+  .hl-float-btn{
+    position:absolute; right:0; top:38%; z-index:5;   /* 独立页用 fixed，嵌入片段用 absolute */
+    background:var(--hl-pink); color:var(--hl-ink);
+    padding:12px 18px 12px 22px;
+    border-radius:12px 0 0 12px;
+    font-size:var(--fs-body); font-weight:600; text-decoration:none;
+    box-shadow:0 4px 14px rgba(0,0,0,.15);
+    transition:transform .2s;
+  }
+  .hl-float-btn:hover{ transform:translateX(-4px); }
+
+  /* ===== 区块② 可能导致的后果 ===== */
+  .hl-consequences{ background:var(--hl-green-1); padding:56px 0 72px; }
+  .hl-row{
+    display:grid;
+    grid-template-columns:26.5% minmax(130px,180px) minmax(0,1fr);
+    column-gap:64px; align-items:center;
+    padding-right:16%;
+    margin-bottom:52px;
+  }
+  .hl-row img{
+    width:100%; aspect-ratio:2/1; object-fit:cover;
+    display:block;
+  }
+  .hl-keyword{ font-size:var(--fs-display); font-weight:700; letter-spacing:2px; }
+  .hl-row p{ font-size:var(--fs-body); line-height:2.05; max-width:620px; }
+  .hl-more{
+    display:block; text-align:center; font-size:var(--fs-small); color:#2F5A46;
+    margin-top:40px; text-decoration:underline;
+  }
+
+  /* ===== 区块③ 早期征兆 ===== */
+  .hl-signs{ background:var(--hl-green-2); padding:56px 0 48px; }
+  .hl-signs-inner{ max-width:1080px; margin:0 auto; padding:0 32px; }
+  .hl-signs-title{ font-size:var(--fs-section); font-weight:700; margin-bottom:72px; color:#173F2C; }
+  .hl-sign-item{
+    display:flex; align-items:center; gap:48px;
+    max-width:560px; margin-bottom:88px;
+  }
+  .hl-sign-item.hl-right{ margin-left:auto; flex-direction:row-reverse; text-align:right; }
+  .hl-sign-icon{ flex:0 0 210px; }
+  .hl-sign-icon img{ width:210px; height:auto; display:block; }
+  .hl-sign-item h3{ font-size:var(--fs-title); font-weight:700; margin-bottom:16px; line-height:1.5; }
+  .hl-sign-item p{ font-size:var(--fs-body); line-height:1.9; }
+
+  /* ===== 区块④ 深圳设施信息 ===== */
+  .hl-shenzhen{ background:var(--hl-teal); color:var(--hl-white); padding:110px 0; }
+  .hl-shenzhen-inner{
+    max-width:1280px; margin:0 auto; padding:0 40px;
+    display:grid; grid-template-columns:220px 1fr; gap:72px; align-items:start;
+  }
+  .hl-shenzhen-label{ font-size:var(--fs-body); line-height:1.8; padding-top:6px; }
+  .hl-hospital{ margin-bottom:36px; }
+  .hl-hospital h3{ font-size:var(--fs-title); font-weight:700; margin-bottom:14px; }
+  .hl-hospital li{ font-size:var(--fs-body); line-height:1.9; margin-bottom:12px; list-style:none; }
+  .hl-hospital a{ color:var(--hl-white); text-decoration:underline; word-break:break-all; opacity:.9; }
+
+  /* ===== 响应式 ===== */
+  @media (max-width:860px){
+    .hl-banner{ flex-direction:column; position:static; margin-bottom:16px; }
+    .hl-row{ grid-template-columns:1fr; gap:14px; padding:0 20px; }
+    .hl-keyword{ font-size:30px; }
+    .hl-sign-item, .hl-sign-item.hl-right{
+      flex-direction:column; text-align:left; margin-left:0; max-width:100%;
+    }
+    .hl-shenzhen-inner{ grid-template-columns:1fr; gap:24px; }
+    .hl-float-btn{ top:auto; bottom:24px; }
+  }
+</style>
+
+<div class="hl-page">
+
+  <!-- ① 索引 Banner（底色对应各区块） -->
+  <nav class="hl-banner">
+    <a class="hl-b1" href="#sec-consequences">听力损失可能导致的后果</a>
+    <a class="hl-b2" href="#sec-signs">听力损失的早期征兆</a>
+    <a class="hl-b3" href="#sec-shenzhen">深圳可提供的听力损失诊断或其他帮助的设施信息</a>
+  </nav>
+
+  <!-- 悬浮按钮：在线听力测试 -->
+  <a class="hl-float-btn" href="https://www.beltone.com/en-us/online-hearing-test" target="_blank" rel="noopener">在线听力测试</a>
+
+  <!-- ② 听力损失可能导致的后果 -->
+  <section class="hl-consequences" id="sec-consequences">
+
+    <div class="hl-row">
+      <img src="images/consequence-social.jpg" alt="长椅旁交谈的老人们">
+      <div class="hl-keyword">社交</div>
+      <p>由于我们依赖听力进行沟通以及与外界的大部分互动，未得到治疗的听力损失会让人们在许多场合感到压力或尴尬，从而导致回避这些场合，进而可能引发社交孤立、孤独感和抑郁。此外，这还会对工作和人际关系产生负面影响，因为无论是听力损失者本人还是周围的人，都可能因为在社交场合中进行沟通和参与所需的额外努力，比潜在的回报更为艰难。</p>
+    </div>
+
+    <div class="hl-row">
+      <img src="images/consequence-body.jpg" alt="台阶上的鞋">
+      <div class="hl-keyword">身体</div>
+      <p>未得到治疗的听力损失与跌倒风险增加有关，这可能带来严重后果，尤其是在我们年纪渐长时。一项2012年的研究发现，轻度听力损失者跌倒的可能性几乎是常人的三倍，且随着听力损失程度的加重，风险也会随之增加。</p>
+    </div>
+
+    <div class="hl-row">
+      <img src="images/consequence-cognitive.jpg" alt="拥挤模糊的人群">
+      <div class="hl-keyword">认知</div>
+      <p>我们的耳朵捕捉声音并将信号传送到大脑，由大脑进行解读或“理解”。保持耳朵与大脑之间的紧密联系有助于保持大脑的活跃状态。多项研究证实了听力损失与认知能力下降之间的关联，其中一项研究指出，与听力正常的人相比，患听力损失的老年人认知能力下降的速度快30%至40%。这可能归因于多种因素，例如因难以理解他人言语而导致的认知负荷增加，无法充分参与社交活动也可能导致大脑刺激减少和社会孤立。</p>
+    </div>
+
+    <a class="hl-more" href="https://www.beltone.com/en-us/hear-from-the-experts/recognizing-early-symptoms-of-hearing-loss" target="_blank" rel="noopener">探索更多：https://www.beltone.com/en-us/hear-from-the-experts/recognizing-early-symptoms-of-hearing-loss</a>
+  </section>
+
+  <!-- ③ 听力损失的早期征兆 -->
+  <section class="hl-signs" id="sec-signs">
+    <div class="hl-signs-inner">
+      <h2 class="hl-signs-title">听力损失的早期征兆</h2>
+
+      <div class="hl-sign-item">
+        <div class="hl-sign-icon">
+          <img src="images/sign-tinnitus.png" alt="耳朵图标">
+        </div>
+        <div>
+          <h3>耳朵里出现“嗡嗡声”？</h3>
+          <p>耳鸣——即耳朵里出现嗡嗡声、嘶嘶声或咻咻声——不仅令人烦躁，往往还预示着听力受损，绝不能忽视——尤其是当这种症状持续存在、影响你的注意力或睡眠，或者随着时间的推移逐渐加重时。</p>
+        </div>
+      </div>
+
+      <div class="hl-sign-item hl-right">
+        <div class="hl-sign-icon">
+          <img src="images/sign-mumble.png" alt="侧脸说话图标">
+        </div>
+        <div>
+          <h3>“人们似乎经常小声嘟嚷？”</h3>
+          <p>“你总是含糊其辞！”“说话清楚点！”你或你的亲人是否经常这样说？人们似乎确实更常含糊其辞了。你能感觉到他们在对你说话，也能听到他们的声音，但话语并不总是清晰，也不像以前那样容易听懂了。</p>
+        </div>
+      </div>
+
+      <div class="hl-sign-item">
+        <div class="hl-sign-icon">
+          <img src="images/sign-daily.png" alt="听不到声音图标">
+        </div>
+        <div>
+          <h3>开始听不到“日常的声音”？</h3>
+          <p>我经常听到未接受治疗的听力损失者提到，他们开始听不到日常的声音——比如门铃声、楼梯的脚步声，甚至是水壶的哨声。你也可能会发现，一些细微的声音，比如鸟儿的鸣叫或远处救护车的警笛声，也变得越来越难捕捉。这些变化可能表明，你的听觉灵敏度或识别某些声音的能力正在下降。</p>
+        </div>
+      </div>
+
+      <div class="hl-sign-item hl-right">
+        <div class="hl-sign-icon">
+          <img src="images/sign-volume.png" alt="音量图标">
+        </div>
+        <div>
+          <h3>将设备的音量调得更大？</h3>
+          <p>我经常听到未接受治疗的听力损失者提到，亲友们注意到你把电视或收音机的音量调得比以前大了。你可能觉得音量刚刚好，但别人可能会觉得声音大得让人不舒服。</p>
+        </div>
+      </div>
+
+      <div class="hl-sign-item">
+        <div class="hl-sign-icon">
+          <img src="images/sign-fatigue.png" alt="电池图标">
+        </div>
+        <div>
+          <h3>社交后感到疲惫？</h3>
+          <p>参加社交聚会或处于群体环境后，你是否感到异常疲惫？这种“社交疲劳”通常源于仔细聆听并理解对话所需的额外精力，尤其是在嘈杂的环境中。当听力不再敏锐时，大脑需要更加努力地填补信息空白，这会让人精神上感到疲惫。</p>
+        </div>
+      </div>
+
+      <div class="hl-sign-item hl-right">
+        <div class="hl-sign-icon">
+          <img src="images/sign-group.png" alt="群体交谈图标">
+        </div>
+        <div>
+          <h3>群体交谈变得更加困难，<br>并频繁请他人重复？</h3>
+          <p>人们反映，群体交谈有时会变得颇具挑战性，尤其是在同时进行多段对话或存在其他背景噪音的情况下。您可能会发现自己漏听了部分对话内容，或者比以往更频繁地需要请他人重复。</p>
+        </div>
+      </div>
+
+      <a class="hl-more" href="https://www.hopkinsmedicine.org/health/wellness-and-prevention/the-hidden-risks-of-hearing-loss" target="_blank" rel="noopener">探索更多：https://www.hopkinsmedicine.org/health/wellness-and-prevention/the-hidden-risks-of-hearing-loss</a>
+    </div>
+  </section>
+
+  <!-- ④ 深圳可提供的听力损失诊断或其他帮助的设施信息 -->
+  <section class="hl-shenzhen" id="sec-shenzhen">
+    <div class="hl-shenzhen-inner">
+      <div class="hl-shenzhen-label">深圳可提供的听力损失诊断或其他帮助的设施信息</div>
+      <div>
+        <!-- 两条医院链接均已由用户核对确认 (2026-09-21) -->
+        <div class="hl-hospital">
+          <h3>1. 深圳市盐田区人民医院</h3>
+          <ul>
+            <li>a）其耳鼻喉科具有比较完整的听觉检查设备，包括纯音测听、声导抗、ABR、ASSR、DPOAE、TEOAE、ECochG、VEMP等，并开展耳聋相关诊疗。地址：深圳市盐田区梧桐路2010号。咨询电话：0755-25216114</li>
+            <li>b）<a href="https://www.yantian.gov.cn/cn/service/yljk/yljg/rmyy/ksjs/content/post_12536123.html" target="_blank" rel="noopener">https://www.yantian.gov.cn/cn/service/yljk/yljg/rmyy/ksjs/content/post_12536123.html</a></li>
+          </ul>
+        </div>
+        <div class="hl-hospital">
+          <h3>2. 深圳市龙岗区耳鼻咽喉医院 / 深圳市耳鼻咽喉研究所</h3>
+          <ul>
+            <li>a）新院区设“前庭医学（眩晕）&amp;听力中心”，属于耳鼻咽喉专科医院，可用于听力诊断、耳科问题和听力相关专科诊疗。深圳卫健委确认其为三级公立耳鼻咽喉专科医院。</li>
+            <li>b）<a href="https://wjw.sz.gov.cn/wzx/content/post_12250346.html" target="_blank" rel="noopener">https://wjw.sz.gov.cn/wzx/content/post_12250346.html</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
